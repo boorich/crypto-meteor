@@ -1,0 +1,26 @@
+<template name="DevProjects">
+    <form class="new-project">
+        <input type="text" name="text" placeholder="Type to add new project"/>
+    </form>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Type</th>
+            <th>Owner</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+            {{#each projects}}
+                <tr>
+                    <td>{{@index}}</td>
+                {{> project}}
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+</template>

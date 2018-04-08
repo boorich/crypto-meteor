@@ -2,38 +2,32 @@ import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 
 
-import './projects.html';
+import './devprojects.html';
 
 import { ReactiveDict } from 'meteor/reactive-dict';
-import { Projects } from '../../api/projects.js';
-import '../entity/project.js';
+import { Projects } from '../../../api/projects.js';
+import '../../entity/project.js';
 
-Template.Projects.onCreated(function bodyOnCreated() {
+Template.DevProjects.onCreated(function devProjectsOnCreated() {
   this.state = new ReactiveDict();
-  console.log("jotasks");
   Meteor.subscribe('projects');
 });
 
 
 
-
-
-Template.Projects.helpers({
+Template.DevProjects.helpers({
   projects() {
     const instance = Template.instance();
     if (instance.state.get('hideCompleted')) {
       // If hide completed is checked, filter projects
-      return Projects.find({ checked: { $ne: true } }, { sort: { createdAt: -1 } });
+      return Projects.find({ coinType: { $eq: "dev" } }, { sort: { createdAt: -1 } });
     }
     // Otherwise, return all of the Projects
-    return Projects.find({}, { sort: { createdAt: -1 } });
-  },
-  incompleteCount() {
-    return Projects.find({ checked: { $ne: true } }).count();
-  },
+    return Projects.find({ coinType: { $eq: "dev" }  }, { sort: { createdAt: -1 } });
+  }
 });
 
-Template.Projects.events({
+Template.DevProjects.events({
 
   'submit .new-project'(event) {
     // Prevent default browser form submit
@@ -44,7 +38,7 @@ Template.Projects.events({
     const text = target.text.value;
     console.log("josubmit")
     // Insert a task into the collection
-    Meteor.call('projects.insert', text);
+    Meteor.call('projects.insert', text, "dev");
 
     // Clear form
     target.text.value = '';

@@ -1,0 +1,51 @@
+<template name="DetailProject">
+    {{text}}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-6">
+                <h2>Info</h2>
+                <table class="table table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Project</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {{#each projects}}
+                        <tr>
+                            <th scope="row">{{@index}}</th>
+                            <td>{{this.text}}</td>
+                        </tr>
+                    {{/each}}
+
+                    </tbody>
+                </table>
+            </div>
+
+
+            <div class="col-xs-6">
+                <h2>Graph</h2>
+
+            </div>
+            <div class="col-xs-6">
+                <h2>Votes</h2>
+
+            </div>
+
+            <div class="col-xs-6">
+                <h2>Issue</h2>
+
+            </div>
+
+            <div class="col-xs-12">
+                <h2>Activity Stream/History</h2>
+
+            </div>
+        </div>
+    </div>
+
+
+
+</template>

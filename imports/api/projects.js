@@ -18,9 +18,9 @@ if (Meteor.isServer) {
 }
 
 Meteor.methods({
-  'projects.insert'(text) {
+  'projects.insert'(text, coinType) {
     check(text, String);
-
+    check(coinType, String);
     // Make sure the user is logged in before inserting a project
     if (! this.userId) {
       throw new Meteor.Error('not-authorized');
@@ -28,6 +28,7 @@ Meteor.methods({
 
     Projects.insert({
       text,
+      coinType,
       createdAt: new Date(),
       owner: this.userId,
       username: Meteor.users.findOne(this.userId).username,

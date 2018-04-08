@@ -2,7 +2,7 @@
  * Created by psyfreak on 08.04.2018.
  */
 import './ui/layout/layout.js';
-
+import { Projects } from './api/projects.js';
 
 Router.configure({
   // the default layout
@@ -13,15 +13,32 @@ Router.route('/', function () {
   this.render('Dashboard');
   this.layout('layout', {data: {title: 'Dashboard'}});
 });
+Router.route('/RevProjects', function () {
+  this.render('RevProjects');
+  this.layout('layout', {data: {title: 'Rev Projects'}});
+});
+Router.route('/DevProjects', function () {
+  this.render('DevProjects');
+  this.layout('layout', {data: {title: 'Dev Projects'}});
+});
 
-
-Router.route('/Projects', function () {
-  this.render('Projects');
+Router.route('/projects/:_id', function () {
+  this.render('DetailProject', {
+    data: function () {
+      return Projects.findOne({_id: this.params._id});
+    }
+  });
   this.layout('layout', {data: {title: 'Projects'}});
 });
 
-
-
+Router.route('/Tasks', function () {
+  this.render('Dashboard');
+  this.layout('layout', {data: {title: 'Tasks'}});
+});
+Router.route('/Account', function () {
+  this.render('Dashboard');
+  this.layout('layout', {data: {title: 'Account'}});
+});
 
 /*
 Router.route('/Projects', function () {

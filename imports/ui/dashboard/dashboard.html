@@ -1,11 +1,68 @@
 <template name="Dashboard">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-xs-6">Projects
+            <div class="col-xs-6">
+                <h2>Dev Tokens</h2>
+                <table class="table table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Project</th>
+                        <th scope="col">#Votes</th>
+                        <th scope="col">#Issues</th>
+                        <th scope="col">#Tokens</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                        {{#each devProjects}}
+                            <tr>
+                                <th scope="row">{{@index}}</th>
+                                <td>{{this.text}}</td>
+                                <td>2</td>
+                                <td>3</td>
+                                <td>4</td>
+                            </tr>
+                        {{/each}}
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-xs-6">
+                <h2>Rev Tokens</h2>
+                <table class="table table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Project</th>
+                        <th scope="col">#Votes</th>
+                        <th scope="col">#Issues</th>
+                        <th scope="col">#Tokens</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {{#each revProjects}}
+                        <tr>
+                            <th scope="row">{{@index}}</th>
+                            <td>{{this.text}}</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                        </tr>
+                    {{/each}}
+
+                    </tbody>
+                </table>
+
 
             </div>
-            <div class="col-xs-6">Open Votes</div>
-            <div class="col-xs-6">Tasks</div>
+            <div class="col-xs-6">
+                <h2>Activity Stream/History</h2>
+                {{#each github}}
+                    jlkj
+                {{/each}}
+            </div>
         </div>
     </div>
 </template>

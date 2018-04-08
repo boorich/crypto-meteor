@@ -26,3 +26,4 @@ dynamic-import
 ethereum:web3
 twbs:bootstrap
 iron:router
+http
