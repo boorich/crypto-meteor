@@ -18,6 +18,7 @@ Template.RevProjects.onCreated(function revProjectsOnCreated() {
 Template.RevProjects.helpers({
   projects() {
     const instance = Template.instance();
+
     if (instance.state.get('hideCompleted')) {
       // If hide completed is checked, filter projects
       return Projects.find({ coinType: { $eq: "rev" } }, { sort: { createdAt: -1 } });
@@ -35,13 +36,13 @@ Template.RevProjects.events({
 
     // Get value from form element
     const target = event.target;
-    const text = target.text.value;
-    console.log("josubmit")
+    const title = target.title.value;
+
     // Insert a task into the collection
-    Meteor.call('projects.insert', text, "rev");
+    Meteor.call('projects.insert', title, "rev");
 
     // Clear form
-    target.text.value = '';
+    target.title.value = '';
   },
   'change .hide-completed input'(event, instance) {
     instance.state.set('hideCompleted', event.target.checked);

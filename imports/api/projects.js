@@ -18,8 +18,8 @@ if (Meteor.isServer) {
 }
 
 Meteor.methods({
-  'projects.insert'(text, coinType) {
-    check(text, String);
+  'projects.insert'(title, coinType) {
+    check(title, String);
     check(coinType, String);
     // Make sure the user is logged in before inserting a project
     if (! this.userId) {
@@ -27,8 +27,10 @@ Meteor.methods({
     }
 
     Projects.insert({
-      text,
+      title,
       coinType,
+      website: "http://start.llocal.de",
+      gitUrl: "https://api.github.com/repos/empea-careercriminal/seedICO",
       createdAt: new Date(),
       owner: this.userId,
       username: Meteor.users.findOne(this.userId).username,

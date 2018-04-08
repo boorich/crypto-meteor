@@ -35,13 +35,13 @@ Template.DevProjects.events({
 
     // Get value from form element
     const target = event.target;
-    const text = target.text.value;
-    console.log("josubmit")
+    const title = target.title.value;
+
     // Insert a task into the collection
-    Meteor.call('projects.insert', text, "dev");
+    Meteor.call('projects.insert', title, "dev");
 
     // Clear form
-    target.text.value = '';
+    target.title.value = '';
   },
   'change .hide-completed input'(event, instance) {
     instance.state.set('hideCompleted', event.target.checked);

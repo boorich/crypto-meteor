@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
-
+import '../chart/chart.js';
+import '../entity/github/github.js';
 
 import './detailproject.html';
 
@@ -13,6 +14,9 @@ Template.DetailProject.onCreated(function revProjectsOnCreated() {
   Meteor.subscribe('projects');
 });
 
+Template.DetailProject.onRendered(function() {
+
+});
 
 
 Template.DetailProject.helpers({

@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import './dashboard.html';
-
+import '../entity/gitcoin/gitcoin.js';
 
 import { Projects } from '../../api/projects.js';
 
@@ -21,6 +21,8 @@ Template.Dashboard.onCreated(function dashboardOnCreated() {
   });
 */
 });
+
+
 
 Template.Dashboard.helpers({
   devProjects() {

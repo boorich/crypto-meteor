@@ -1,24 +1,38 @@
 <template name="DetailProject">
-    {{text}}
+    <h2>{{title}}</h2>
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-6">
-                <h2>Info</h2>
+                <h2>Details</h2>
                 <table class="table table-hover table-striped">
                     <thead>
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Project</th>
+                        <th scope="col">Attribute</th>
+                        <th scope="col">Value</th>
                     </tr>
                     </thead>
                     <tbody>
-
-                    {{#each projects}}
                         <tr>
-                            <th scope="row">{{@index}}</th>
-                            <td>{{this.text}}</td>
+                            <th scope="row">_id</th>
+                            <td>{{this._id}}</td>
                         </tr>
-                    {{/each}}
+                        <tr>
+                            <th scope="row">Title</th>
+                            <td>{{this.title}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Type</th>
+                            <td>{{this.coinType}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Website</th>
+                            <td><a href="{{this.website}}" target="_blank">{{this.website}}</a></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Git</th>
+                            <td><a href="{{this.gitUrl}}" target="_blank">{{this.gitUrl}}</a></td>
+                        </tr>
+
 
                     </tbody>
                 </table>
@@ -27,7 +41,7 @@
 
             <div class="col-xs-6">
                 <h2>Graph</h2>
-
+                {{>Chart}}
             </div>
             <div class="col-xs-6">
                 <h2>Votes</h2>
@@ -35,8 +49,8 @@
             </div>
 
             <div class="col-xs-6">
-                <h2>Issue</h2>
-
+                <h2>Issues</h2>
+                {{>Github}}
             </div>
 
             <div class="col-xs-12">
@@ -45,7 +59,4 @@
             </div>
         </div>
     </div>
-
-
-
 </template>

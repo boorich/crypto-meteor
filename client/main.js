@@ -1,3 +1,4 @@
+import '../imports/startup/init.js';
 import '../imports/startup/accounts-config.js';
 import '../imports/ui/dashboard/dashboard.js';
 import '../imports/ui/projects/dev/devprojects.js';
