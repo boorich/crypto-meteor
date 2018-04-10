@@ -1,16 +1,21 @@
 <template name="DetailProject">
-    <h2>{{title}}</h2>
-    <div class="container-fluid">
+    <h2 class="text-center">{{title}}</h2>
+    <hr>
+    <div class="content">
         <div class="row">
             <div class="col-xs-12">
-                {{#unless contractAddress}}
-                    <button class="createContract btn btn-info">
-                        <span class="glyphicon glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                <div class="btn-group" role="group" aria-label="...">
+                    {{#unless contractAddress}}
+                    <button type="button" title="deploy contract" class="btn btn-default createContract btn-info">
+                        <span class="glyphicon glyphicon glyphicon-upload" aria-hidden="true"></span>
                     </button>
-                {{/unless}}
-                {{getContract}}
+                    {{/unless}}
+                    <button type="button" class="btn btn-default">Action 2</button>
+                    <button type="button" class="btn btn-default">Action 3</button>
+                </div>
             </div>
         </div>
+        <hr>
         <div class="row">
             <div class="col-xs-6">
                 <h2>Details</h2>
@@ -59,6 +64,7 @@
             </div>
 
 
+
             <div class="col-xs-6">
                 <h2>Graph</h2>
                 {{>Chart}}
@@ -77,6 +83,13 @@
                 <h2>Activity Stream/History</h2>
 
             </div>
+
+            <div class="col-xs-12">
+                <h2>Debug</h2>
+                {{ jsonPrint abi}}
+            </div>
+
+
         </div>
     </div>
 </template>

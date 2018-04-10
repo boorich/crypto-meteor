@@ -5,13 +5,17 @@ import '../entity/github/github.js';
 
 import './detailproject.html';
 
-import { ReactiveDict } from 'meteor/reactive-dict';
-import { Projects } from '../../api/projects.js';
-
 
 Template.DetailProject.onCreated(function revProjectsOnCreated() {
-  this.state = new ReactiveDict();
-  Meteor.subscribe('projects');
+    Meteor.subscribe('projects');
+    console.log("this", this);
+    let conAdr = this.data.contractAddress ;
+    console.log("conAdr", conAdr);
+    if(conAdr) {
+        let con = getContract(conAdr);
+        console.log("con", con);
+        this.data.abi = con.abi;
+    }
 });
 
 Template.DetailProject.onRendered(function() {
@@ -21,9 +25,10 @@ Template.DetailProject.onRendered(function() {
 
 Template.DetailProject.helpers({
     getContract() {
-        const instance = Template.instance();
-        console.log("this", this);
-
+        //const instance = Template.instance();
+    },
+    jsonPrint(jsonObject) { // with Latest Javascript ECMAScript 2015+
+        return JSON.stringify(jsonObject);
     }
 });
 
