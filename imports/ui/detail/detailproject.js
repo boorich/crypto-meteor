@@ -12,7 +12,7 @@ Template.DetailProject.onCreated(function revProjectsOnCreated() {
     let conAdr = this.data.contractAddress ;
     console.log("conAdr", conAdr);
     if(conAdr) {
-        let con = getContract(conAdr);
+        let con = SmartContract.getContract(conAdr);
         console.log("con", con);
         this.data.abi = con.abi;
     }
@@ -43,7 +43,7 @@ Template.DetailProject.events({
         // Insert a task into the collection
         let adr = "0x5fe5a1d75076f0b8425d0aa98874b37eef429552";
 
-        createContract(  ).then( response => {
+        SmartContract.createContract(  ).then( response => {
             console.log( response, "success" );
 
             if ( true ) {
