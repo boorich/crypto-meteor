@@ -27,15 +27,32 @@ Meteor.methods({
     }
 
     Projects.insert({
-      title,
-      coinType,
-      website: "http://start.llocal.de",
-      gitUrl: "https://api.github.com/repos/empea-careercriminal/seedICO",
-      createdAt: new Date(),
-      owner: this.userId,
-      username: Meteor.users.findOne(this.userId).username,
+        title,
+        coinType,
+        website: "http://start.llocal.de",
+        gitUrl: "https://api.github.com/repos/empea-careercriminal/seedICO",
+        createdAt: new Date(),
+        owner: this.userId,
+        username: Meteor.users.findOne(this.userId).username,
+        contractOwner: "",
+        contractAddress: "",
+        contractTransaction: ""
     });
   },
+  'projects.createContract'(projectid, contract) {
+      console.log("projects.updateContract", projectid, contract);
+      check(projectid, String);
+      //check(contractAddress, String);
+
+      const project = Projects.findOne(projectid);
+      if (project.owner !== this.userId) {
+          // If the project is private, make sure only the owner can check it off
+          throw new Meteor.Error('not-authorized');
+      }
+
+      Projects.update(projectid, { $set: { contractOwner: contract.owner, contractAddress: contract.address, contractTransaction: contract.transactionHash } });
+  },
+
   'projects.remove'(projectid) {
     check(projectid, String);
 

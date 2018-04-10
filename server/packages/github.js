@@ -15,7 +15,7 @@ Meteor.methods({
 
 if (Meteor.isServer) {
   Meteor.methods({
-    testAPI: function () {
+    testAPI2: function () {
       this.unblock();
       return HTTP.get('GET', 'http://jsonplaceholder.typicode.com/posts', {
         params: {

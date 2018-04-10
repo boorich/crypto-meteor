@@ -2,6 +2,16 @@
     <h2>{{title}}</h2>
     <div class="container-fluid">
         <div class="row">
+            <div class="col-xs-12">
+                {{#unless contractAddress}}
+                    <button class="createContract btn btn-info">
+                        <span class="glyphicon glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                    </button>
+                {{/unless}}
+                {{getContract}}
+            </div>
+        </div>
+        <div class="row">
             <div class="col-xs-6">
                 <h2>Details</h2>
                 <table class="table table-hover table-striped">
@@ -32,8 +42,18 @@
                             <th scope="row">Git</th>
                             <td><a href="{{this.gitUrl}}" target="_blank">{{this.gitUrl}}</a></td>
                         </tr>
-
-
+                        <tr>
+                            <th scope="row">contractAddress</th>
+                            <td>{{this.contractAddress}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">contractTransaction</th>
+                            <td>{{this.contractTransaction}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">contractOwner</th>
+                            <td>{{this.contractOwner}}</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

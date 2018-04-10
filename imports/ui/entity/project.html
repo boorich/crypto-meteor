@@ -11,6 +11,14 @@
     <td>
        {{username}}
     </td>
+    <td>
+        {{#if contractAddress}}
+            yes
+        {{else}}
+            not yet
+        {{/if}}
+    </td>
+
     {{#if isOwner}}
         <td>
             <button class="toggle-private btn btn-info">

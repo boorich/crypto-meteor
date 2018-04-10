@@ -89,6 +89,8 @@ session@1.1.7
 sha@1.0.9
 shell-server@0.3.1
 shim-common@0.1.0
+silentcicero:solc@0.4.3
+silentcicero:solc-compiler@0.2.1
 socket-stream-client@0.1.0
 spacebars@1.0.12
 spacebars-compiler@1.1.1
