@@ -28,5 +28,3 @@ twbs:bootstrap
 iron:router
 http
 maazalik:highcharts
-silentcicero:solc-compiler
-silentcicero:solc

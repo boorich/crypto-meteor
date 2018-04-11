@@ -5,6 +5,8 @@ import '../imports/ui/projects/creation/createProject.js';
 import '../imports/ui/projects/dev/devprojects.js';
 import '../imports/ui/projects/rev/revprojects.js';
 import '../imports/ui/detail/detailproject.js';
+import '../imports/client/contracts/list/ContractList.js';
+import '../imports/client/contracts/detail/ContractDetail.js';
 import '../imports/route.js';
 import { SmartContract } from './SmartContract';
 

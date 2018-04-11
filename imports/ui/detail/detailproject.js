@@ -4,7 +4,7 @@ import '../chart/chart.js';
 import '../entity/github/github.js';
 
 import './detailproject.html';
-
+//import 'client/lib/soljson-v0.4.5+commit.b318366e.js';
 
 Template.DetailProject.onCreated(function revProjectsOnCreated() {
     Meteor.subscribe('projects');
@@ -16,6 +16,9 @@ Template.DetailProject.onCreated(function revProjectsOnCreated() {
         console.log("con", con);
         this.data.abi = con.abi;
     }
+
+    //Meteor.call('loadContract');
+    //Meteor.call('loadContractWithFs');
 });
 
 Template.DetailProject.onRendered(function() {

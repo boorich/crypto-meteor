@@ -1,0 +1,33 @@
+<template name="ContractInterface">
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>name</th>
+                <th>constant</th>
+                <th>payable</th>
+                <th>type</th>
+                <th>stateMutability</th>
+                <th>inputs</th>
+                <th>outputs</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {{#each interfaceElements}}
+                <tr>
+                    <td>{{@index}}</td>
+                    <td>{{name}}</td>
+                    <td>{{constant}}</td>
+                    <td>{{payable}}</td>
+                    <td>{{type}}</td>
+                    <td>{{stateMutability}}</td>
+                    <td>{{jsonPrint inputs }}</td>
+                    <td>{{jsonPrint outputs}}</td>
+
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+</template>

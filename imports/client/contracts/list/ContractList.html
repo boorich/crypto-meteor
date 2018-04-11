@@ -1,0 +1,46 @@
+<template name="ContractList">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>_id</th>
+            <th>Title</th>
+            <th>Type</th>
+            <th>Private</th>
+            <th>Owner</th>
+            <th>Created</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+            {{#each contracts}}
+                <tr>
+                    <td>{{@index}}</td>
+                    <td>{{this._id}}</td>
+                    <td>{{this.title}}</td>
+                    <td>{{this.coinType}}</td>
+                    <td>{{this.Private}}</td>
+                    <td>{{this.owner}}</td>
+                    <td>{{this.createdAt}}</td>
+
+                        <td>
+                            <button class="toggle-private btn btn-info">
+                                {{#if private}}
+                                    <span class="glyphicon glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+                                {{else}}
+                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                {{/if}}
+                            </button>
+                        </td>
+                        <td>
+                            <a href="/contracts/{{_id}}" class="btn btn-info" role="button"><span class="glyphicon glyphicon glyphicon-folder-open" aria-hidden="true"></span></a>
+                        </td>
+                    <td>
+                        <button class="delete btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+                    </td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+</template>

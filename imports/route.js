@@ -3,6 +3,7 @@
  */
 import './ui/layout/layout.js';
 import { Projects } from './api/projects.js';
+import { Contracts } from './api/contracts.js';
 
 Router.configure({
   // the default layout
@@ -36,6 +37,25 @@ Router.route('/projects/:_id', function () {
   });
   this.layout('layout', {data: {title: 'Projects'}});
 });
+
+Router.route('/ContractList', function () {
+    this.render('ContractList');
+    this.layout('layout', {data: {title: 'Contract List'}});
+});
+
+
+Router.route('/contracts/:_id', function () {
+
+  this.render('ContractDetail', {
+        data: function () {
+            return Contracts.findOne({_id: this.params._id});
+        }
+    });
+
+    this.layout('layout', {data: {title: 'Contract'}});
+});
+
+
 
 Router.route('/Tasks', function () {
   this.render('Dashboard');
