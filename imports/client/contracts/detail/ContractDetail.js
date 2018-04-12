@@ -23,9 +23,5 @@ Template.ContractDetail.helpers({
 });
 
 Template.ContractDetail.events({
-    'click .createContract'(event) {
-        // Prevent default browser form submit
-        event.preventDefault();
-    }
 
 });

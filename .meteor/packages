@@ -28,3 +28,4 @@ twbs:bootstrap
 iron:router
 http
 maazalik:highcharts
+natestrauser:select2

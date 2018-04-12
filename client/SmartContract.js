@@ -14,22 +14,58 @@ class SmartContract {
      * @param userAdr
      * @returns {Promise}
      */
-    static createContract = function(userAdr) {
-        let abi = SmartContract.getContractObject().abi,
-            byteCode = SmartContract.getContractObject().bytecode,
-            contract = web3.eth.contract(abi),
+    static deployContract = function(userAdr, abi, bytecode) {
+        console.log("deployContract", userAdr, abi, bytecode);
+
+        /*
+        abi = SmartContract.getContractObject().abi,
+            bytecode = SmartContract.getContractObject().bytecode,
+            */
+         let   contract = web3.eth.contract(abi),
             user = userAdr || this.getUser(),
             gas = 3000000,
             params = {
                 from: user,
                 gas: gas,
-                data: byteCode
+                data: bytecode
             };
-        console.log("create Contract: ", byteCode, contract, user);
+
+        let args = {
+            // Name of the token
+            name: "DevToken",
+            // Symbol of the token
+            symbol: "DVT",
+            // max number of tokens
+            maxSupply: web3.toWei(100, 'ether'),
+            // percentage of tokens anyone can hold
+            maxStake: 25,
+            // tokens bought per ether
+            tokensPerEther: 5,
+            // array of owners
+            owners: [
+                web3.eth.accounts[0],
+            ],
+            // balances of the indiviual owners
+            balances: [
+                web3.toWei(20, 'ether'),
+            ],
+            // interval of the owner allowance
+            allowanceInterval: 60,
+            // value of the owner allowance
+            allowanceValue: web3.toWei(1, 'ether'),
+            // duration of a proposal/vote
+            proposalDuration: 60,
+            // minumum vote participation in percent to end a vote
+            minVotes: 50
+        };
+
+
+        console.log("create Contract: user ", user);
+        console.log("create Contract: bytecode", bytecode);
+        console.log("create Contract: contract", contract);
 
         return new Promise( ( resolve, reject ) => {
-
-            contract.new(params, ( error, response ) => {
+            contract.new( params, ( error, response ) => {
                 if ( error ) {
                     reject( error.reason );
                 } else {

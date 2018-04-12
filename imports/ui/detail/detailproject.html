@@ -4,15 +4,25 @@
     <div class="content">
         <div class="row">
             <div class="col-xs-12">
-                <div class="btn-group" role="group" aria-label="...">
-                    {{#unless contractAddress}}
-                    <button type="button" title="deploy contract" class="btn btn-default createContract btn-info">
-                        <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
-                    </button>
-                    {{/unless}}
-                    <button type="button" class="btn btn-default">Action 2</button>
-                    <button type="button" class="btn btn-default">Action 3</button>
-                </div>
+                {{#unless contractAddress}}
+
+                    <div class="col-xs-2">
+                        <button type="button" title="deploy contract" class="btn btn-default btn-outline-secondary deployContract btn-info">
+                            <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                    <div class="col-xs-4">
+                        <select id="selectionContract" class="select2-dropdown" name="state">
+                            <option value="" selected disabled hidden>Choose here</option>
+                            {{#each getContracts}}
+                                <option value="{{_id}}">{{title}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+
+                {{/unless}}
+
+
             </div>
         </div>
         <hr>
@@ -58,6 +68,10 @@
                         <tr>
                             <th scope="row">contractOwner</th>
                             <td>{{this.contractOwner}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">contractAbi</th>
+                            <td>{{jsonPrint this.contractAbi}}</td>
                         </tr>
                     </tbody>
                 </table>

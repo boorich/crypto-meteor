@@ -2,21 +2,22 @@
  * API for contracts
  * Publications and Methods
  */
-import { Meteor } from 'meteor/meteor';
-import { Mongo } from 'meteor/mongo';
-import { check } from 'meteor/check';
+import {Meteor} from 'meteor/meteor';
+import {Mongo} from 'meteor/mongo';
+import {check} from 'meteor/check';
+import {Projects} from "./projects";
 
 export const Contracts = new Mongo.Collection('contracts');
 
-var insert = function(title, coinType, source, code, abi) {
+var insert = function (title, coinType, source, code, abi) {
     check(title, String);
     check(coinType, String);
     // Make sure the user is logged in before inserting a project
     // TODO security issue...
-    let user =  this.userId || "admin",
+    let user = this.userId || "admin",
         username = "admin";
-    if(this.userId) {
-        user =  Meteor.users.findOne(this.userId).username;
+    if (this.userId) {
+        user = Meteor.users.findOne(this.userId).username;
     }
     else {
         username = "admin";
@@ -42,18 +43,18 @@ var insert = function(title, coinType, source, code, abi) {
 
 
 if (Meteor.isServer) {
-  // This code only runs on the server
-  // Only publish contracts that are public or belong to the current user
+    // This code only runs on the server
+    // Only publish contracts that are public or belong to the current user
     //const fs = require("fs");
     const solc = require("solc");
     Meteor.publish('contracts', function contractsPublication() {
-    return Contracts.find({
-      $or: [
-        { private: { $ne: true } },
-        { owner: this.userId },
-      ],
+        return Contracts.find({
+            $or: [
+                {private: {$ne: true}},
+                {owner: this.userId},
+            ],
+        });
     });
-  });
 
     Meteor.methods({
         'loadContract'(filename) {
@@ -66,7 +67,7 @@ if (Meteor.isServer) {
             console.log(solc.version());
             let importContract = "";
             //importContract =  Assets.getText('contracts/SimpleStorage.sol');
-            importContract =  Assets.getText('contracts/'+ filename + '.sol');
+            importContract = Assets.getText('contracts/' + filename + '.sol');
             //importContract =  Assets.getText('contracts/Test.sol');
             console.log("importContract", importContract);
 
@@ -75,8 +76,8 @@ if (Meteor.isServer) {
 
             //var output = solc.compileStandardWrapper(importContract, findImports)
             //console.log("output", output.contracts);
-            var bytecode = output.contracts[':'+filename].bytecode;
-            var interface = output.contracts[':'+filename].interface;
+            var bytecode = output.contracts[':' + filename].bytecode;
+            var interface = output.contracts[':' + filename].interface;
 
             //var obj = JSON.parse(output);
 
@@ -102,52 +103,77 @@ if (Meteor.isServer) {
 }
 
 Meteor.methods({
+
     'contracts.insert'(title, coinType, source, code, abi) {
         insert(title, coinType, source, code, abi);
-  },
+    },
     /**
      * Remove contract by id. Only owner can remove a contract.
      * @param contractid
      */
     'contracts.remove'(contractid) {
-    check(contractid, String);
-
-    const contract = Contracts.findOne(contractid);
-    if (contract.owner !== this.userId) {
-      // If the contract is private, make sure only the owner can delete it
-      throw new Meteor.Error('not-authorized');
-    }
-
-      Contracts.remove(contractid);
-  },
-    'contracts.update'(contractid, updateObj) {
-    check(contractid, String);
-    check(updateObj, Object);
-
-    const contract = Contracts.findOne(contractid);
-    if (contract.owner !== this.userId) {
-      // If the contract is private, make sure only the owner can check it off
-      throw new Meteor.Error('not-authorized');
-    }
-
-      Contracts.update(contractid, { $set: {
-              source: updateObj.source,
-              code: updateObj.code,
-              abi: updateObj.abi,
-              createdAt: new Date()
-          } });
-  },
-    'contracts.setPrivate'(contractid, setToPrivate) {
         check(contractid, String);
-        check(setToPrivate, Boolean);
 
         const contract = Contracts.findOne(contractid);
+        if (contract.owner !== this.userId) {
+            // If the contract is private, make sure only the owner can delete it
+            throw new Meteor.Error('not-authorized');
+        }
+
+        Contracts.remove(contractid);
+    },
+    'contracts.update'(contractid, updateObj) {
+        check(contractid, String);
+        check(updateObj, Object);
+
+        const contract = Contracts.findOne(contractid);
+        if (contract.owner !== this.userId) {
+            // If the contract is private, make sure only the owner can check it off
+            throw new Meteor.Error('not-authorized');
+        }
+
+        Contracts.update(contractid, {
+            $set: {
+                source: updateObj.source,
+                code: updateObj.code,
+                abi: updateObj.abi,
+                createdAt: new Date()
+            }
+        });
+    },
+    'contracts.setPrivate'(contractId, setToPrivate) {
+        check(contractId, String);
+        check(setToPrivate, Boolean);
+
+        const contract = Contracts.findOne(contractId);
 
         // Make sure only the contract owner can make a contract private
         if (contract.owner !== this.userId) {
             throw new Meteor.Error('not-authorized');
         }
-        Contracts.update(contractid, { $set: { private: setToPrivate } });
+        Contracts.update(contractId, {$set: {private: setToPrivate}});
+    },
+    'contracts.getById'(contractId) {
+        check(contractId, String);
+        const contract = Contracts.findOne(contractId);
+
+        // Make sure only the contract owner can make a contract private
+        if (!this.userId) {
+            throw new Meteor.Error('not-authorized');
+        }
+        return contract;
+    },
+    'contracts.getByTitle'(contractTitle) {
+        check(contractTitle, String);
+        if (!this.userId) {
+            throw new Meteor.Error('not-authorized');
+        }
+
+        console.log("contractTitle", contractTitle);
+
+        let contract =  Contracts.findOne({title: { $eq: contractTitle }});
+        console.log("contract", contract);
+        return contract;
     }
 });
 
