@@ -38,10 +38,13 @@ Meteor.methods({
             createdAt: new Date(),
             owner: this.userId,
             username: Meteor.users.findOne(this.userId).username,
+            contractId: "",
+            contractTitle: "",
             contractOwner: "",
             contractAddress: "",
             contractTransaction: "",
-            contractAbi: ""
+            contractAbi: "",
+            contractDeployDate: ""
         });
     },
     'projects.deployContract'(projectid, contract) {
@@ -57,10 +60,14 @@ Meteor.methods({
 
         Projects.update(projectid, {
             $set: {
+                contractId: contract.contractId,
+                contractTitle: contract.contractTitle,
                 contractOwner: contract.owner,
                 contractAddress: contract.address,
                 contractTransaction: contract.transactionHash,
-                contractAbi: contract.abi
+                contractAbi: contract.abi,
+                contractSource: contract.contractSource,
+                contractDeployDate: new Date()//TODO all dates to utc
             }
         });
     },

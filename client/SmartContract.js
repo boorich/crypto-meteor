@@ -8,80 +8,56 @@ class SmartContract {
         this.address = address;
     }
 
+    static _contract = null;
+
 
     /**
      * creates contract either with user identified by userAdr or if not defined by web3.eth.accounts[0].
      * @param userAdr
      * @returns {Promise}
      */
-    static deployContract = function(userAdr, abi, bytecode) {
-        console.log("deployContract", userAdr, abi, bytecode);
-
+    static deployContract = function(userAdr, gas, abi, bytecode, args) {
+        console.log("deployContract args", arguments);
         /*
         abi = SmartContract.getContractObject().abi,
             bytecode = SmartContract.getContractObject().bytecode,
             */
-         let   contract = web3.eth.contract(abi),
-            user = userAdr || this.getUser(),
-            gas = 3000000,
+        let contract = web3.eth.contract(abi),
+            user = userAdr || this.getUser(),// if userAdr not set, use web3.eth.accounts[0]
             params = {
                 from: user,
                 gas: gas,
                 data: bytecode
             };
 
-        let args = {
-            // Name of the token
-            name: "DevToken",
-            // Symbol of the token
-            symbol: "DVT",
-            // max number of tokens
-            maxSupply: web3.toWei(100, 'ether'),
-            // percentage of tokens anyone can hold
-            maxStake: 25,
-            // tokens bought per ether
-            tokensPerEther: 5,
-            // array of owners
-            owners: [
-                web3.eth.accounts[0],
-            ],
-            // balances of the indiviual owners
-            balances: [
-                web3.toWei(20, 'ether'),
-            ],
-            // interval of the owner allowance
-            allowanceInterval: 60,
-            // value of the owner allowance
-            allowanceValue: web3.toWei(1, 'ether'),
-            // duration of a proposal/vote
-            proposalDuration: 60,
-            // minumum vote participation in percent to end a vote
-            minVotes: 50
-        };
-
-
-        console.log("create Contract: user ", user);
-        console.log("create Contract: bytecode", bytecode);
         console.log("create Contract: contract", contract);
+        // console.log("create Contract: args", args);
 
-        return new Promise( ( resolve, reject ) => {
-            contract.new( params, ( error, response ) => {
-                if ( error ) {
-                    reject( error.reason );
+        return new Promise((resolve, reject) => {
+            //if available add additional ctor inits to argument list
+            let contractArgs = (args && args.length > 0) ? args : [];
+            contractArgs.push(params);// add default params to argument array
+            //add callback to argument array
+            contractArgs.push((error, response) => {
+                if (error) {
+                    reject(error.reason);
                 } else {
                     // contract deployment runs twice, first w/o address and when deployed successfully with address
-                    if(response.address) {
-                        console.log( "Contract deployed!", response );
+                    if (response.address) {
+                        console.log("Contract deployed!", response);
                         // add sender, currently no clue where
                         response.owner = params.from;
-                        resolve( response );
+                        resolve(response);
                     }
                     else {
-                        console.log( "Contract submitted!", response );
+                        console.log("Contract submitted!", response);
                     }
                 }
             });
 
+            console.log("contractArgs", contractArgs);
+            // deploy new contract
+            contract.new.apply(contract, contractArgs);
         });
     };
 
@@ -167,6 +143,7 @@ class SmartContract {
     static getContract = function(contractAddress, contractAbi ) {
         let contrAbi = contractAbi || SmartContract.getContractObject().abi,
             foundContract = web3.eth.contract(contrAbi).at(contractAddress);
+            SmartContract._contract = foundContract;
         return foundContract;
     };
 
@@ -188,6 +165,13 @@ class SmartContract {
         return web3.eth.getBalance(SmartContract.getUser()).toNumber();
     };
 
+    static setNumber = function(number) {
+        SmartContract._contract.set(number, {from: SmartContract.getUser()});
+    };
+
+    static getNumber = function() {
+        return SmartContract._contract.get().toNumber();
+    };
 
 
     solcShizzle = function() {

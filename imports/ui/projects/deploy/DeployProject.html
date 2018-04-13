@@ -1,0 +1,67 @@
+<template name="DeployProject">
+
+    <!-- Modal -->
+    <div class="modal fade" id="deployModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Initialize Contract</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                   <div class="container-fluid">
+                       <div class="row">
+                           <div class="col-xs-12">
+
+                               <select id="selectionContract" class="select2-dropdown" name="state">
+                                   <option value="" selected disabled hidden>Choose here</option>
+                                   {{#each getContracts}}
+                                       <option value="{{_id}}">{{title}}</option>
+                                   {{/each}}
+                               </select>
+
+                           </div>
+                       </div>
+
+                       <div id="jo" class="row">
+                           <div class="col-xs-12">
+                               <table class="table table-hover table-striped">
+                                   <thead>
+                                   <tr>
+                                       <th scope="col">Property</th>
+                                       <th scope="col">Datatype</th>
+                                       <th scope="col">Value</th>
+                                   </tr>
+                                   </thead>
+                                   <tbody>
+
+
+                                   {{#each Ctor }}
+                                       <tr>
+                                           <th scope="row">{{name}}</th>
+                                           <td>{{type}}</td>
+                                           <td>
+                                               <input type="{{getInputType type}}" name="fname" />
+                                           </td>
+                                       </tr>
+                                   {{/each}}
+                                   </tbody>
+                               </table>
+                           </div>
+                       </div>
+                   </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" title="deploy contract" class="btn btn-default btn-primary deployContract btn-info">
+                        <span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Deploy
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

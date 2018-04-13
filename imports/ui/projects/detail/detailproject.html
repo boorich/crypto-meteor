@@ -5,23 +5,14 @@
         <div class="row">
             <div class="col-xs-12">
                 {{#unless contractAddress}}
-
-                    <div class="col-xs-2">
-                        <button type="button" title="deploy contract" class="btn btn-default btn-outline-secondary deployContract btn-info">
-                            <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
-                        </button>
-                    </div>
-                    <div class="col-xs-4">
-                        <select id="selectionContract" class="select2-dropdown" name="state">
-                            <option value="" selected disabled hidden>Choose here</option>
-                            {{#each getContracts}}
-                                <option value="{{_id}}">{{title}}</option>
-                            {{/each}}
-                        </select>
-                    </div>
-
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deployModal">
+                       Deploy Contract
+                    </button>
                 {{/unless}}
+                <!-- Button trigger modal -->
 
+
+                {{> DeployProject}}
 
             </div>
         </div>
@@ -58,6 +49,14 @@
                             <td><a href="{{this.gitUrl}}" target="_blank">{{this.gitUrl}}</a></td>
                         </tr>
                         <tr>
+                            <th scope="row">contractId</th>
+                            <td>{{this.contractId}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">contractTitle</th>
+                            <td>{{this.contractTitle}}</td>
+                        </tr>
+                        <tr>
                             <th scope="row">contractAddress</th>
                             <td>{{this.contractAddress}}</td>
                         </tr>
@@ -70,8 +69,16 @@
                             <td>{{this.contractOwner}}</td>
                         </tr>
                         <tr>
+                            <th scope="row">Deployed at</th>
+                            <td>{{this.contractDeployDate}}</td>
+                        </tr>
+                        <tr>
                             <th scope="row">contractAbi</th>
                             <td>{{jsonPrint this.contractAbi}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">contractSource</th>
+                            <td>{{this.contractSource}}</td>
                         </tr>
                     </tbody>
                 </table>
