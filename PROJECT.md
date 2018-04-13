@@ -19,7 +19,7 @@ Best practice from 2 worlds in sports analytics shape the future of professional
 
 
 # Product Description
-![alt text](https://github.com/empea-careercriminal/crypto-meteor/blob/develop/bb.png "Bounty Boards")
+![alt text](https://github.com/empea-careercriminal/crypto-meteor/blob/develop/bb.gif "Bounty Boards")
 
 ## Hardware Components
 The core of the system is a sensor bluetooth beacon that records the boarder’s movement. 
