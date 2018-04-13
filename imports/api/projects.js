@@ -34,7 +34,7 @@ Meteor.methods({
             title,
             coinType,
             website: "http://start.llocal.de",
-            gitUrl: "https://api.github.com/repos/empea-careercriminal/seedICO",
+            gitUrl: "https://api.github.com/repos/empea-careercriminal/crypto-meteor",
             createdAt: new Date(),
             owner: this.userId,
             username: Meteor.users.findOne(this.userId).username,
