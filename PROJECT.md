@@ -94,3 +94,22 @@ Skateboard
 Snowboard
 
 - Q1 - Partner with X-Games
+
+# Team
+
+Talk about the team here so your audience gets to know you better.
+
+Product Team
+
+- Product Lead
+- Product Developer
+
+Technology Team
+
+- Hardware Lead
+- Software Developer
+
+Business Team
+
+- Business Lead
+- ...
