@@ -21,9 +21,9 @@ The system provides the following functions:
   - Show project details i.e. if deployed and if so deploy data such as contract address, abi, transaction hash
 
 # Artefacts
-1. Install testrpc or ganache (in the case of canache change either the port to 8545 or change the web provider port here: imports/startup/init.js)
+1. Install testrpc or ganache (in the case of ganache change either the port to 8545 or change the web provider port here: imports/startup/init.js)
 2. Install meteor. Maybe you need to install some additional NPM packages.
-3. test if installation worked out well. Just type in meteor.
+3. Test if installation worked out well. Just type in meteor.
 
 
 # Start environment
