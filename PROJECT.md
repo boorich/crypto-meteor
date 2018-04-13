@@ -69,7 +69,7 @@ Skateboard
 | ------------- |:-------------:| ---------:|
 | 20 Mio.       | 6.44 Mio.     | n/a
 
-[Source:](https://brandongaille.com/20-good-skateboard-sales-statistics/).
+[Source](https://brandongaille.com/20-good-skateboard-sales-statistics/) data for market size estimations.
 
 ## Community Building
 
