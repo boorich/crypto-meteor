@@ -14,12 +14,12 @@ Router.route('/', function () {
   this.render('Dashboard');
   this.layout('layout', {data: {title: 'Dashboard'}});
 });
-
+/*
 Router.route('/CreateProject', function () {
     this.render('CreateProject');
     this.layout('layout', {data: {title: 'Create Project'}});
 });
-
+*/
 Router.route('/RevProjects', function () {
   this.render('RevProjects');
   this.layout('layout', {data: {title: 'Rev Projects'}});

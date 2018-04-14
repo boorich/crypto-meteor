@@ -87,13 +87,54 @@ Template.DeployProject.events({
         event.preventDefault();
         // Get value from form element
         const target = event.target;
-        console.log(this, "this");
+
         let contractId = $("#selectionContract").val();
         console.log("contractId", contractId)
         if(!contractId) {
             alert("Please select a contract");
             return;
         }
+
+        let $form = $("#deploy-project"),
+            deployArguments = [];
+
+        let deployProjectArray = $form.serializeArray();
+        console.log(deployProjectArray);
+        for(let i = 0, len = deployProjectArray.length; i < len; i++) {
+            let name = deployProjectArray[i].name;
+            console.log(name);
+            let inputType = $("#deploy-project #" + name)[0].type;
+            console.log(inputType);
+            //
+            let input =  deployProjectArray[i].value;
+            if(inputType === "number") {
+                input = parseInt(input, 10);
+            }
+            else {
+
+            }
+            deployArguments.push(input);
+        }
+        console.log(deployArguments);
+
+        /*
+               args = [
+                   "DevToken",
+                   "DVT",
+                   web3.toWei(100, 'ether'),
+                   25,
+                   5,
+                   [SmartContract.getUser()],
+                   [web3.toWei(20, 'ether')],
+                   60,
+                   web3.toWei(1, 'ether'),
+                   60,
+                   50,
+                   30
+               ];
+               /**/
+
+
 
         //Meteor.call('projects.deployContract',  this._id, this.title);
 
@@ -111,27 +152,9 @@ Template.DeployProject.events({
                     code = res.code;
                 console.log("before deploy:", abi, code);
                 // 2. deployContract to blockchain
-                let gas = 5000000,
-                    args = [];
-                /*
-                args = [
-                    "DevToken",
-                    "DVT",
-                    web3.toWei(100, 'ether'),
-                    25,
-                    5,
-                    [SmartContract.getUser()],
-                    [web3.toWei(20, 'ether')],
-                    60,
-                    web3.toWei(1, 'ether'),
-                    60,
-                    50,
-                    30
-                ];
-                /**/
+                let gas = 5000000;
 
-
-                SmartContract.deployContract("", gas, abi, code, args )  .then( response => {
+                SmartContract.deployContract("", gas, abi, code, deployArguments )  .then( response => {
 
                     // 3. Update current project with information of deployed contract
                     response.contractId = res._id;
@@ -141,6 +164,8 @@ Template.DeployProject.events({
 
 
                     Meteor.call('projects.deployContract',  this._id, response, function() {
+                        // Clear form and close
+                        $form[0].reset();
                         $('#deployModal').modal('hide');
                     });
                 }).catch( error => {

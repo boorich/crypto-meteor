@@ -23,18 +23,20 @@ if (Meteor.isServer) {
 }
 
 Meteor.methods({
-    'projects.insert'(title, coinType) {
-        check(title, String);
-        check(coinType, String);
+    'projects.insert'(newProject) {
+        check(newProject.title, String);
+        check(newProject.coinType, String);
+        //check(newProject.website, URL);
+        //check(newProject.git, URL);
         // Make sure the user is logged in before inserting a project
         if (!this.userId) {
             throw new Meteor.Error('not-authorized');
         }
         Projects.insert({
-            title,
-            coinType,
-            website: "http://start.llocal.de",
-            gitUrl: "https://api.github.com/repos/empea-careercriminal/crypto-meteor",
+            title: newProject.title,
+            coinType: newProject.coinType,
+            website: newProject.website,
+            gitUrl: newProject.git || "https://api.github.com/repos/empea-careercriminal/crypto-meteor",
             createdAt: new Date(),
             owner: this.userId,
             username: Meteor.users.findOne(this.userId).username,

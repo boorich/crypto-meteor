@@ -16,7 +16,7 @@ Template.CreateProject.helpers({
 
 Template.CreateProject.events({
 
-  'submit .new-project'(event) {
+  'submit #new-project'(event) {
     // Prevent default browser form submit
     event.preventDefault();
 
@@ -24,10 +24,20 @@ Template.CreateProject.events({
     const target = event.target;
     const title = target.title.value;
 
-    // Insert a task into the collection
-    Meteor.call('projects.insert', title, "dev");
+    let $form = $("#new-project");
+
+    let newProjectArray = $form.serializeArray(),
+        newProject = {};
+    for(let i = 0, len = newProjectArray.length; i < len; i++) {
+        let name = newProjectArray[i].name;
+        newProject[name] = newProjectArray[i].value;
+    }
+    console.log(newProject);
+
+      // Insert a task into the collection
+    Meteor.call('projects.insert', newProject);
 
     // Clear form
-    target.title.value = '';
+      $form[0].reset();
   }
 });
