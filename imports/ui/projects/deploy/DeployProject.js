@@ -57,12 +57,7 @@ Template.DeployProject.helpers({
     Ctor(  ) {
         let contractAbi = Template.instance().Ctor.get();
         //type und inputs
-        for(let i=0,len=contractAbi.length; i < len; i++) {
-            if(contractAbi[i].type === "constructor") {
-                return contractAbi[i].inputs;
-            }
-        }
-
+        return SmartContract.getContractInputs(contractAbi);
     },
     getContracts() {
         // return only non-private contracts
@@ -98,47 +93,9 @@ Template.DeployProject.events({
         let $form = $("#deploy-project"),
             deployArguments = [];
 
-        let deployProjectArray = $form.serializeArray();
-        console.log(deployProjectArray);
-        for(let i = 0, len = deployProjectArray.length; i < len; i++) {
-            let name = deployProjectArray[i].name;
-            console.log(name);
-            let inputType = $("#deploy-project #" + name)[0].type;
-            console.log(inputType);
-            //
-            let input =  deployProjectArray[i].value;
-            if(inputType === "number") {
-                input = parseInt(input, 10);
-            }
-            else {
+        let deployProjectArray = $form.serializeArray();//TODO check validity is missing
 
-            }
-            deployArguments.push(input);
-        }
-        console.log(deployArguments);
-
-        /*
-               args = [
-                   "DevToken",
-                   "DVT",
-                   web3.toWei(100, 'ether'),
-                   25,
-                   5,
-                   [SmartContract.getUser()],
-                   [web3.toWei(20, 'ether')],
-                   60,
-                   web3.toWei(1, 'ether'),
-                   60,
-                   50,
-                   30
-               ];
-               /**/
-
-
-
-        //Meteor.call('projects.deployContract',  this._id, this.title);
-
-        //Maybe doing this completely on server is better => include web on server side...
+        //Maybe doing this completely on server is better => include web3 on server side...
 
         // 1. get contract by id
         Meteor.call('contracts.getById', contractId, (err, res) => {
@@ -154,6 +111,9 @@ Template.DeployProject.events({
                 // 2. deployContract to blockchain
                 let gas = 5000000;
 
+                deployArguments = SmartContract.prepareContractArguments(abi, deployProjectArray);
+                //SmartContract
+              
                 SmartContract.deployContract("", gas, abi, code, deployArguments )  .then( response => {
 
                     // 3. Update current project with information of deployed contract

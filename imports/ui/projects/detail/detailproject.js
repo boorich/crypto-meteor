@@ -40,9 +40,9 @@ Template.DetailProject.helpers({
     },
     getMarkdown() {
         //let mdjo = Assets.getText('md/PROJECTS.md');
-        console.log("mdjo", jo);
+        //console.log("mdjo", jo);
         var result = md.render(jo);
-        console.log(result);
+        //console.log(result);
         return result;
     }
 });

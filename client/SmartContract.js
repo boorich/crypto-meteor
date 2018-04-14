@@ -10,6 +10,65 @@ class SmartContract {
 
     static _contract = null;
 
+    /*
+               args = [
+                   "DevToken",
+                   "DVT",
+                   web3.toWei(100, 'ether'),
+                   25,
+                   5,
+                   [SmartContract.getUser()],
+                   [web3.toWei(20, 'ether')],
+                   60,
+                   web3.toWei(1, 'ether'),
+                   60,
+                   50,
+                   30
+               ];
+               /**/
+
+
+    static prepareContractArguments = function(contractAbiObj, inputArray) {
+        console.log("arguments", arguments);
+        let retArguments = [];
+        let seperator = ",";
+
+        let deployArguments = SmartContract.getContractInputs(contractAbiObj);
+
+        for(let i = 0, len = deployArguments.length; i < len; i++) {
+            let argName = inputArray[i].name,
+                argType = deployArguments[i].type;
+
+            console.log("arg: ", argName, argType);
+            //
+            let input =  inputArray[i].value,
+                argValue = null;
+
+            if(argType === "uint256") {
+                argValue = parseInt(input, 10);
+            }
+            else if(argType === "string" ) {
+                argValue = input;
+            }
+            else if( (argType === "address[]" ) ) {
+                argValue = input.split(seperator);
+                console.log("array ", argValue);
+            }
+            else if( (argType === "uint256[]" ) ) {
+                argValue = input.split(seperator);
+                console.log("array ", argValue);
+            }
+            else {
+                console.warn("Datattype" + argType + " is not supported yet");
+                continue;
+            }
+            console.log("value ", argValue);
+            retArguments.push(argValue);
+        }
+        console.log(retArguments);
+        return retArguments;
+    };
+
 
     /**
      * creates contract either with user identified by userAdr or if not defined by web3.eth.accounts[0].
@@ -59,6 +118,21 @@ class SmartContract {
             // deploy new contract
             contract.new.apply(contract, contractArgs);
         });
+    };
+
+    /**
+     * Get the array of ctor inputs to initialize contract
+     * @param contractAbiObj
+     * @returns {*}
+     */
+    static getContractInputs(contractAbiObj) {
+        console.log("contractAbiObj", contractAbiObj);
+        for(let i=0,len=contractAbiObj.length; i < len; i++) {
+            if(contractAbiObj[i].type === "constructor") {
+                return contractAbiObj[i].inputs;
+            }
+        }
+        return [];
     };
 
    static testContract = function(address) {
