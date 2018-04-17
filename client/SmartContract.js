@@ -10,23 +10,6 @@ class SmartContract {
 
     static _contract = null;
 
-    /*
-               args = [
-                   "DevToken",
-                   "DVT",
-                   web3.toWei(100, 'ether'),
-                   25,
-                   5,
-                   [SmartContract.getUser()],
-                   [web3.toWei(20, 'ether')],
-                   60,
-                   web3.toWei(1, 'ether'),
-                   60,
-                   50,
-                   30
-               ];
-               /**/
-
 
     static prepareContractArguments = function(contractAbiObj, inputArray) {
         console.log("arguments", arguments);
@@ -51,12 +34,17 @@ class SmartContract {
                 argValue = input;
             }
             else if( (argType === "address[]" ) ) {
-                argValue = input.split(seperator);
-                console.log("array ", argValue);
+                if(input && input.length > 0) {
+                    argValue = input.split(seperator);
+                    console.log("array ", argValue);
+                }
             }
             else if( (argType === "uint256[]" ) ) {
-                argValue = input.split(seperator);
-                console.log("array ", argValue);
+                if(input && input.length > 0) {
+                    argValue = input.split(seperator);
+                    argValue = argValue.map(x => parseInt(x,10));
+                    console.log("array ", argValue);
+                }
             }
             else {
                 console.warn("Datattype" + argType + " is not supported yet");
@@ -65,6 +53,24 @@ class SmartContract {
             console.log("value ", argValue);
             retArguments.push(argValue);
         }
+
+
+
+        retArguments = [
+               "DevToken",
+               "DVT",
+               web3.toWei(100, 'ether'),
+               25,
+               5,
+               [SmartContract.getUser()],
+               [web3.toWei(20, 'ether')],
+               60,
+               web3.toWei(1, 'ether'),
+               60,
+               50,
+               30
+           ];
+           /**/
         console.log(retArguments);
         return retArguments;
     };

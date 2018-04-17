@@ -1,7 +1,3 @@
-This demo illustrated the use of the PROJECT.md file. This file is used to generate a website for your project. You are free to use any markdown.
-
-Learn some basics about [Markdown](https://www.markdownguide.org).
-
 # Project Name
 Bounty Boards
 

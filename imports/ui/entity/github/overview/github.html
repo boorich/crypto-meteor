@@ -1,0 +1,10 @@
+<template name="GithubOverview">
+    <div class="row">
+        <div class="col-xs-12">
+            <p><a href="{{issues.html_url}}">Our repo called "{{issues.name}}" (opened by {{issues.owner.login}} at {{issues.created_at}} with last update at {{issues.updated_at}})</a></p>
+            <p>{{issues.description}}</p>
+            <p>Subscribers: {{issues.subscribers_count}}</p>
+            <p>Open issues: {{issues.open_issues}}</p>
+        </div>
+    </div>
+</template>

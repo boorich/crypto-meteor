@@ -6,11 +6,6 @@ import './DeployProject.html';
 import {Projects} from "../../../api/projects";
 
 
-Template.DeployProject.created = function() {
-    //const instance = Template.instance();
-    this.Ctor = new ReactiveVar([]);
-};
-
 Template.DeployProject.onCreated(function DeployProjectOnCreated() {
 
     Meteor.subscribe('projects');
@@ -18,6 +13,8 @@ Template.DeployProject.onCreated(function DeployProjectOnCreated() {
     console.log("this", this);
     const instance = Template.instance();
 
+    //const instance = Template.instance();
+    this.Ctor = new ReactiveVar([]);
 
    //this.contractInterface = new ReactiveVar('waiting...');
     let conAdr = this.data.contractAddress ;

@@ -11,110 +11,125 @@
                 {{/unless}}
                 <!-- Button trigger modal -->
                 {{> DeployProject}}
-
-
-
             </div>
         </div>
-        <hr>
+
+
         <div class="row">
-            <div class="col-xs-6">
-                <h2>Details</h2>
-                <table class="table table-hover table-striped">
-                    <thead>
-                    <tr>
-                        <th scope="col">Attribute</th>
-                        <th scope="col">Value</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">_id</th>
-                            <td>{{this._id}}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Title</th>
-                            <td>{{this.title}}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Type</th>
-                            <td>{{this.coinType}}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Website</th>
-                            <td><a href="{{this.website}}" target="_blank">{{this.website}}</a></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Git</th>
-                            <td><a href="{{this.gitUrl}}" target="_blank">{{this.gitUrl}}</a></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">contractId</th>
-                            <td>{{this.contractId}}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">contractTitle</th>
-                            <td>{{this.contractTitle}}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">contractAddress</th>
-                            <td>{{this.contractAddress}}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">contractTransaction</th>
-                            <td>{{this.contractTransaction}}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">contractOwner</th>
-                            <td>{{this.contractOwner}}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Deployed at</th>
-                            <td>{{this.contractDeployDate}}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">contractAbi</th>
-                            <td>{{jsonPrint this.contractAbi}}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">contractSource</th>
-                            <td>{{this.contractSource}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-
-
-            <div class="col-xs-6">
-                <h2>Graph</h2>
-                {{>Chart}}
-            </div>
-            <div class="col-xs-6">
-                <h2>Votes</h2>
-
-            </div>
-
-            <div class="col-xs-6">
-                <h2>Issues</h2>
-                {{>Github}}
-            </div>
-
             <div class="col-xs-12">
-                <h2>Activity Stream/History</h2>
-
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#overview">Overview</a></li>
+                    <li><a data-toggle="tab" href="#project">Project</a></li>
+                    <li><a data-toggle="tab" href="#development">Development</a></li>
+                    <li><a data-toggle="tab" href="#debug">Debug</a></li>
+                </ul>
             </div>
         </div>
 
         <div class="row">
             <div class="col-xs-12">
-            {{{getMarkdown}}}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <h2>Debug</h2>
-                {{ jsonPrint abi}}
+                <div class="tab-content">
+                    <div id="overview" class="tab-pane fade in active">
+                        <h3>Overview</h3>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <h2>Details</h2>
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Attribute</th>
+                                        <th scope="col">Value</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th scope="row">_id</th>
+                                        <td>{{this._id}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Title</th>
+                                        <td>{{this.title}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Type</th>
+                                        <td>{{this.coinType}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Website</th>
+                                        <td><a href="{{this.website}}" target="_blank">{{this.website}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Git</th>
+                                        <td><a href="{{this.gitUrl}}" target="_blank">{{this.gitUrl}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">contractId</th>
+                                        <td>{{this.contractId}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">contractTitle</th>
+                                        <td>{{this.contractTitle}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">contractAddress</th>
+                                        <td>{{this.contractAddress}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">contractTransaction</th>
+                                        <td>{{this.contractTransaction}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">contractOwner</th>
+                                        <td>{{this.contractOwner}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Deployed at</th>
+                                        <td>{{this.contractDeployDate}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">contractAbi</th>
+                                        <td>{{jsonPrint this.contractAbi}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">contractSource</th>
+                                        <td>{{this.contractSource}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-xs-6">
+                                <h2>Graph</h2>
+                                {{>Chart}}
+                            </div>
+                            <div class="col-xs-6">
+                                <h2>Votes</h2>
+
+                            </div>
+
+                            <div class="col-xs-6">
+                                <h2>Issues</h2>
+                                {{>GithubOverview url=gitUrl}}
+                            </div>
+
+                            <div class="col-xs-12">
+                                <h2>Activity Stream/History</h2>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div id="project" class="tab-pane fade">
+                        <h3>project</h3>
+                        {{>GithubDocu url=gitUrl docuType="PROJECT.md"}}
+                    </div>
+                    <div id="development" class="tab-pane fade">
+                        <h3>development</h3>
+                        {{>GithubDocu url=gitUrl docuType="README.md"}}
+                    </div>
+                    <div id="debug" class="tab-pane fade">
+                        <h3>Debug</h3>
+                        <p> {{ jsonPrint abi}}</p>
+                    </div>
+                </div>
             </div>
         </div>
 
