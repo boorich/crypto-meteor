@@ -7,7 +7,7 @@ Template.GithubOverview.onCreated(function infoOnCreated() {
     const temp = Template.instance();
 
     if(!this.url) {
-        this.url = 'https://api.github.com/repos/empea-careercriminal/crypto-meteor';
+        this.url = 'https://api.github.com/repos/empea-careercriminal/crypto-meteor/';
     }
     HTTP.call("GET", this.url, {}, function(error, response) {
         console.log("error", error);

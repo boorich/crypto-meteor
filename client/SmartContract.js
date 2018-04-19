@@ -11,6 +11,12 @@ class SmartContract {
     static _contract = null;
 
 
+    /**
+     *
+     * @param contractAbiObj
+     * @param inputArray
+     * @returns {Array}
+     */
     static prepareContractArguments = function(contractAbiObj, inputArray) {
         console.log("arguments", arguments);
         let retArguments = [];
@@ -55,7 +61,7 @@ class SmartContract {
         }
 
 
-
+/*
         retArguments = [
                "DevToken",
                "DVT",
@@ -71,6 +77,24 @@ class SmartContract {
                30
            ];
            /**/
+
+        retArguments = [
+            "DevToken",
+            "DVT",
+            100,
+            25,
+            5,
+            [SmartContract.getUser()],
+            [20],
+            60,
+            1,
+            60,
+            50,
+            30
+        ];
+
+
+/**/
         console.log(retArguments);
         return retArguments;
     };

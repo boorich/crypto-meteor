@@ -15,11 +15,10 @@ Template.GithubDocu.onCreated(function infoOnCreated() {
     console.log("temp.data.url", this.url);
 
 
-
+    //'accept': 'application/vnd.github.VERSION.raw'
     let options = {
        "headers": {
-           'accept': 'application/vnd.github.VERSION.raw+json'
-           //'accept': 'application/vnd.github.VERSION.raw'
+           'accept': 'application/vnd.github.VERSION.html'
        }
     };
     if(!this.data.url) {
@@ -34,7 +33,7 @@ Template.GithubDocu.onCreated(function infoOnCreated() {
 
 
 
-    let url = this.data.url + this.data.docuType;
+    let url = this.data.url + "/" + this.data.docuType;
     console.log("url", url);
     HTTP.call("GET", url, options, function(error, response) {
         console.log("error " + url, error);
@@ -47,7 +46,7 @@ Template.GithubDocu.helpers({
     markdown() {
         const temp = Template.instance();
         let mdHelp =  temp.markdown.get();
-        return md.render(mdHelp);
+        return mdHelp; //md.render(mdHelp);
     }
 });
 

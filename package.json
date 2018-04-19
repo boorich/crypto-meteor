@@ -8,6 +8,6 @@
     "@babel/runtime": "^7.0.0-beta.44",
     "markdown-it": "^8.4.1",
     "meteor-node-stubs": "~0.2.0",
-    "solc": "^0.4.21"
+    "solc": "^0.4.22"
   }
 }

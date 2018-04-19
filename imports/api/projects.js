@@ -36,7 +36,7 @@ Meteor.methods({
             title: newProject.title,
             coinType: newProject.coinType,
             website: newProject.website,
-            gitUrl: newProject.git || "https://api.github.com/repos/empea-careercriminal/crypto-meteor",
+            gitUrl: newProject.git || "https://api.github.com/repos/empea-careercriminal/crypto-meteor/contents/",
             createdAt: new Date(),
             owner: this.userId,
             username: Meteor.users.findOne(this.userId).username,
